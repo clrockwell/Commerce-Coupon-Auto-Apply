@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Contains commerce_coupon_auto_apply.module.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+
+/**
+ * Implements hook_help().
+ */
+function commerce_coupon_auto_apply_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the commerce_coupon_auto_apply module.
+    case 'help.page.commerce_coupon_auto_apply':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Allows admin to configure coupons to auto-apply') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function commerce_coupon_auto_apply_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  if ($entity_type->id() === 'commerce_promotion_coupon') {
+    $fields['auto_apply'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Auto-apply this coupon?'))
+      ->setDescription('If checked, this coupon will auto-apply if your specified conditions are met')
+      ->setSetting('default', 0)
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'weight' => 5,
+        'description' => 'If checked, this coupon will auto-apply if your specified conditions are met',
+      ]);
+
+    return $fields;
+  }
+}

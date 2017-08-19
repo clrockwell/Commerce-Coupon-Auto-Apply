@@ -1,0 +1,14 @@
+{
+  "name": "drupal/commerce_promotion_auto_apply",
+  "type": "drupal-module",
+  "description": "Allows admin to configure coupons to auto-apply",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/commerce_promotion_auto_apply",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/commerce_promotion_auto_apply",
+    "source": "http://cgit.drupalcode.org/commerce_promotion_auto_apply"
+  },
+  "require": { }
+}

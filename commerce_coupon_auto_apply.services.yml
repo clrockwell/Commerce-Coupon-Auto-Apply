@@ -1,0 +1,7 @@
+services:
+  commerce_promotion_auto_apply.cart_add_subscriber:
+    class: Drupal\commerce_coupon_auto_apply\EventSubscriber\CommerceCouponAutoApplySubscriber
+    arguments: ['@entity_type.manager', '@datetime.time']
+    tags:
+      - { name: event_subscriber }
+
