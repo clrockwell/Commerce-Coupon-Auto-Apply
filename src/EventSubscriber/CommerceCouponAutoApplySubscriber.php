@@ -51,6 +51,9 @@ class CommerceCouponAutoApplySubscriber implements EventSubscriberInterface {
    */
   public function commerce_cart_entity_add(Event $event) {
     $coupons = $this->getAutoApplyCoupons();
+    if (!$coupons) {
+      return;
+    }
     $potential_apply = [];
     /** @var Coupon $coupon */
     foreach ($coupons as $key => $coupon) {
@@ -77,17 +80,8 @@ class CommerceCouponAutoApplySubscriber implements EventSubscriberInterface {
    * @todo how about moving this to controller?
    */
   public function getAutoApplyCoupons() {
-    $coupons = $this->entityManager->getStorage('commerce_promotion_coupon')
-      ->getQuery()
-      ->condition('auto_apply', 1)
-      ->execute();
-
-    if (!empty($coupons)) {
-      return $this->entityManager->getStorage('commerce_promotion_coupon')
-        ->loadMultiple($coupons);
-    }
-
-    return FALSE;
+    return $this->entityManager->getStorage('commerce_promotion_coupon')
+        ->loadByProperties(['auto_apply' => 1]);
   }
 
 }
